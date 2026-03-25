@@ -3,6 +3,44 @@
         {
             "fields": [
                 {
+                    "defaultValue": "tab",
+                    "description": "Select the trigger button style",
+                    "label": "Trigger Style",
+                    "name": "triggerStyle",
+                    "type": "select",
+                    "typeOptions": {
+                        "validValues": [
+                            {
+                                "value": "icon"
+                            },
+                            {
+                                "value": "tab"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "defaultValue": "Feedback",
+                    "description": "Text displayed in the tab trigger (if Tab style is selected)",
+                    "label": "Tab Text",
+                    "name": "tabText",
+                    "type": "text"
+                },
+                {
+                    "defaultValue": "#E44B23",
+                    "description": "Background color for the tab (if Tab style is selected)",
+                    "label": "Tab Background Color",
+                    "name": "tabBackgroundColor",
+                    "type": "colorPicker"
+                },
+                {
+                    "defaultValue": "#ffffff",
+                    "description": "Text color for the tab (if Tab style is selected)",
+                    "label": "Tab Text Color",
+                    "name": "tabTextColor",
+                    "type": "colorPicker"
+                },
+                {
                     "defaultValue": "emoji",
                     "description": "Select the rating type",
                     "label": "Rating Type",

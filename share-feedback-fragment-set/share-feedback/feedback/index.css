@@ -1,31 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 /* Styling for Share Feedback Widget */
 .lfr-share-feedback {
     position: fixed;
     z-index: 9999;
-    font-family: inherit;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Positions */
-.lfr-share-feedback[data-position="bottom-right"] {
-    bottom: 24px;
-    right: 24px;
-}
-.lfr-share-feedback[data-position="bottom-left"] {
-    bottom: 24px;
-    left: 24px;
-}
-.lfr-share-feedback[data-position="middle-right"] {
-    top: 50%;
-    right: 24px;
-    transform: translateY(-50%);
-}
-.lfr-share-feedback[data-position="middle-left"] {
-    top: 50%;
-    left: 24px;
-    transform: translateY(-50%);
-}
+/* Base wrapper positioning based on icon vs tab */
+.lfr-share-feedback[data-trigger="icon"][data-position="bottom-right"] { bottom: 24px; right: 24px; }
+.lfr-share-feedback[data-trigger="icon"][data-position="bottom-left"] { bottom: 24px; left: 24px; }
+.lfr-share-feedback[data-trigger="icon"][data-position="middle-right"] { top: 50%; right: 24px; transform: translateY(-50%); }
+.lfr-share-feedback[data-trigger="icon"][data-position="middle-left"] { top: 50%; left: 24px; transform: translateY(-50%); }
 
-.lfr-share-feedback__trigger {
+.lfr-share-feedback[data-trigger="tab"][data-position="bottom-right"] { bottom: 0; right: 24px; }
+.lfr-share-feedback[data-trigger="tab"][data-position="bottom-left"] { bottom: 0; left: 24px; }
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-right"] { top: 50%; right: 0; transform: translateY(-50%); }
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-left"] { top: 50%; left: 0; transform: translateY(-50%); }
+
+/* Icon trigger button */
+.lfr-share-feedback__trigger--icon {
     background: var(--primary, #0b5fff);
     color: white;
     border: none;
@@ -42,9 +36,71 @@
         box-shadow 0.2s ease;
 }
 
-.lfr-share-feedback__trigger:hover {
+.lfr-share-feedback__trigger--icon:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Tab trigger button */
+.lfr-share-feedback__trigger--tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Tab - bottom edge */
+.lfr-share-feedback[data-trigger="tab"][data-position="bottom-right"] .lfr-share-feedback__trigger--tab,
+.lfr-share-feedback[data-trigger="tab"][data-position="bottom-left"] .lfr-share-feedback__trigger--tab {
+    border-radius: 6px 6px 0 0;
+    transform-origin: bottom center;
+}
+.lfr-share-feedback[data-trigger="tab"][data-position="bottom-right"] .lfr-share-feedback__trigger--tab:hover,
+.lfr-share-feedback[data-trigger="tab"][data-position="bottom-left"] .lfr-share-feedback__trigger--tab:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Hotjar style side tabs */
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-right"] .lfr-share-feedback__trigger--tab {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding: 16px 10px;
+    border-radius: 0 6px 6px 0; /* visually top-left & bot-left */
+    transform-origin: center;
+}
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-right"] .lfr-share-feedback__trigger--tab:hover {
+    transform: rotate(180deg) translateX(4px);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-left"] .lfr-share-feedback__trigger--tab {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding: 16px 10px;
+    border-radius: 6px 0 0 6px; /* visually top-right & bot-right */
+}
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-left"] .lfr-share-feedback__trigger--tab:hover {
+    transform: rotate(180deg) translateX(-4px);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.lfr-share-feedback__tab-icon {
+    /* For standard orientation */
+    transform: none;
+}
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-right"] .lfr-share-feedback__tab-icon,
+.lfr-share-feedback[data-trigger="tab"][data-position="middle-left"] .lfr-share-feedback__tab-icon {
+    /* For vertical-rl bottom-up text, icon must point right-side up visually */
+    transform: rotate(90deg);
 }
 
 .lfr-share-feedback__modal {
