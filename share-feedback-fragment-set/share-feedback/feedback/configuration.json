@@ -1,3 +1,75 @@
 {
-    "fieldSets": []
+    "fieldSets": [
+        {
+            "fields": [
+                {
+                    "defaultValue": "emoji",
+                    "description": "Select the rating type",
+                    "label": "Rating Type",
+                    "name": "ratingType",
+                    "type": "select",
+                    "typeOptions": {
+                        "validValues": [
+                            {
+                                "value": "emoji"
+                            },
+                            {
+                                "value": "star"
+                            },
+                            {
+                                "value": "nps"
+                            },
+                            {
+                                "value": "thumbs"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "defaultValue": false,
+                    "description": "Show optional email field",
+                    "label": "Collect Email",
+                    "name": "collectEmail",
+                    "type": "checkbox"
+                },
+                {
+                    "defaultValue": false,
+                    "description": "Allow users to take a screenshot",
+                    "label": "Capture Screenshot",
+                    "name": "captureScreenshot",
+                    "type": "checkbox"
+                },
+                {
+                    "defaultValue": false,
+                    "description": "Show category selection dropdown",
+                    "label": "Show Category",
+                    "name": "showCategory",
+                    "type": "checkbox"
+                },
+                {
+                    "defaultValue": "bottom-right",
+                    "description": "Select the floating button position",
+                    "label": "Button Position",
+                    "name": "buttonPosition",
+                    "type": "select",
+                    "typeOptions": {
+                        "validValues": [
+                            {
+                                "value": "bottom-right"
+                            },
+                            {
+                                "value": "bottom-left"
+                            },
+                            {
+                                "value": "middle-right"
+                            },
+                            {
+                                "value": "middle-left"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
 }

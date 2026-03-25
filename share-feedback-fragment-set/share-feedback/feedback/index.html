@@ -1,1 +1,297 @@
-<h1>Running</h1>
+<div class="lfr-share-feedback" data-position="${configuration.buttonPosition}">
+    <button class="lfr-share-feedback__trigger" aria-label="Share Feedback">
+        <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+            <path
+                d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+            />
+        </svg>
+    </button>
+
+    <div class="lfr-share-feedback__modal" aria-hidden="true" role="dialog">
+        <div class="lfr-share-feedback__modal-header">
+            <h3>Share Feedback</h3>
+            <button
+                type="button"
+                class="lfr-share-feedback__close"
+                aria-label="Close"
+            >
+                <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                >
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                    />
+                </svg>
+            </button>
+        </div>
+
+        <div class="lfr-share-feedback__modal-body">
+            <form class="lfr-share-feedback__form">
+                [#if configuration.showCategory]
+                <div class="lfr-share-feedback__group">
+                    <label>Category</label>
+                    <select name="category" class="lfr-share-feedback__select">
+                        <option value="suggestion">💡 Suggestion</option>
+                        <option value="bug">🐛 Bug Report</option>
+                        <option value="compliment">❤️ Compliment</option>
+                        <option value="other">💬 Other</option>
+                    </select>
+                </div>
+                [/#if]
+
+                <div class="lfr-share-feedback__group pt-2">
+                    <label>How would you rate your experience?</label>
+                    [#if configuration.ratingType == "emoji"]
+                    <div
+                        class="lfr-share-feedback__rating lfr-share-feedback__rating--emoji"
+                    >
+                        <label
+                            ><input
+                                type="radio"
+                                name="rating"
+                                value="1"
+                                required
+                            /><span>😡</span></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="2" /><span
+                                >😕</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="3" /><span
+                                >😐</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="4" /><span
+                                >🙂</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="5" /><span
+                                >😍</span
+                            ></label
+                        >
+                    </div>
+                    [#elseif configuration.ratingType == "star"]
+                    <div
+                        class="lfr-share-feedback__rating lfr-share-feedback__rating--star"
+                    >
+                        <label
+                            ><input
+                                type="radio"
+                                name="rating"
+                                value="5"
+                                required /><svg viewBox="0 0 24 24">
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                /></svg
+                        ></label>
+                        <label
+                            ><input type="radio" name="rating" value="4" /><svg
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                /></svg
+                        ></label>
+                        <label
+                            ><input type="radio" name="rating" value="3" /><svg
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                /></svg
+                        ></label>
+                        <label
+                            ><input type="radio" name="rating" value="2" /><svg
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                /></svg
+                        ></label>
+                        <label
+                            ><input type="radio" name="rating" value="1" /><svg
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                                /></svg
+                        ></label>
+                    </div>
+                    [#elseif configuration.ratingType == "nps"]
+                    <div
+                        class="lfr-share-feedback__rating lfr-share-feedback__rating--nps"
+                    >
+                        <label
+                            ><input
+                                type="radio"
+                                name="rating"
+                                value="0"
+                                required
+                            /><span>0</span></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="1" /><span
+                                >1</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="2" /><span
+                                >2</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="3" /><span
+                                >3</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="4" /><span
+                                >4</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="5" /><span
+                                >5</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="6" /><span
+                                >6</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="7" /><span
+                                >7</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="8" /><span
+                                >8</span
+                            ></label
+                        >
+                        <label
+                            ><input type="radio" name="rating" value="9" /><span
+                                >9</span
+                            ></label
+                        >
+                        <label
+                            ><input
+                                type="radio"
+                                name="rating"
+                                value="10"
+                            /><span>10</span></label
+                        >
+                    </div>
+                    [#elseif configuration.ratingType == "thumbs"]
+                    <div
+                        class="lfr-share-feedback__rating lfr-share-feedback__rating--thumbs"
+                    >
+                        <label
+                            ><input
+                                type="radio"
+                                name="rating"
+                                value="down"
+                                required /><svg viewBox="0 0 24 24">
+                                <path
+                                    d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"
+                                /></svg
+                        ></label>
+                        <label
+                            ><input type="radio" name="rating" value="up" /><svg
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"
+                                /></svg
+                        ></label>
+                    </div>
+                    [/#if]
+                </div>
+
+                <div class="lfr-share-feedback__group">
+                    <label>Comments</label>
+                    <textarea
+                        name="comments"
+                        class="lfr-share-feedback__textarea"
+                        rows="3"
+                        placeholder="Tell us more about your experience..."
+                        required
+                    ></textarea>
+                </div>
+
+                [#if configuration.collectEmail]
+                <div class="lfr-share-feedback__group">
+                    <label>Email (optional)</label>
+                    <input
+                        type="email"
+                        name="email"
+                        class="lfr-share-feedback__input"
+                        placeholder="your@email.com"
+                    />
+                </div>
+                [/#if] [#if configuration.captureScreenshot]
+                <div class="lfr-share-feedback__group">
+                    <button
+                        type="button"
+                        class="lfr-share-feedback__screenshot-btn"
+                    >
+                        <svg
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            width="20"
+                            height="20"
+                        >
+                            <path
+                                d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"
+                            />
+                        </svg>
+                        Include Screenshot
+                    </button>
+                    <div class="lfr-share-feedback__screenshot-preview hidden">
+                        <img src="" alt="Screenshot preview" />
+                        <button
+                            type="button"
+                            class="lfr-share-feedback__screenshot-remove"
+                            aria-label="Remove screenshot"
+                        >
+                            &times;
+                        </button>
+                    </div>
+                </div>
+                [/#if]
+
+                <div class="lfr-share-feedback__footer">
+                    <button
+                        type="submit"
+                        class="lfr-share-feedback__submit-btn"
+                    >
+                        Send Feedback
+                    </button>
+                </div>
+
+                <div class="lfr-share-feedback__success-message hidden">
+                    <svg
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        width="48"
+                        height="48"
+                        style="color: #28a745; margin-bottom: 16px"
+                    >
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                        />
+                    </svg>
+                    <h4>Thank You!</h4>
+                    <p>Your feedback has been submitted successfully.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
