@@ -134,14 +134,21 @@ async function main() {
             }
 
             try {
+                // Calculate a safe scale to reduce dimensions dramatically
+                // Scales high-res displays down so the max width is ~800px
+                const safeScale = Math.min(1, 800 / window.innerWidth);
+
                 const canvas = await html2canvas(document.body, {
                     logging: false,
                     useCORS: true,
+                    scale: safeScale,
                     ignoreElements: (element) =>
                         element.classList.contains("lfr-share-feedback"),
                 });
 
-                screenshotDataUrl = canvas.toDataURL("image/png");
+                // Use highly-compressed JPEG (0.4 quality) instead of lossless PNG
+                // This ensures base64 strings easily stay below the 65000-char limits
+                screenshotDataUrl = canvas.toDataURL("image/jpeg", 0.4);
 
                 const previewContainer = fragmentElement.querySelector(
                     ".lfr-share-feedback__screenshot-preview",
