@@ -27,31 +27,24 @@
                     "type": "text"
                 },
                 {
+                    "defaultValue": "Share Feedback",
+                    "description": "Title displayed in the modal header",
+                    "label": "Modal Title",
+                    "name": "modalTitle",
+                    "type": "text"
+                },
+                {
                     "defaultValue": "#E44B23",
-                    "description": "Background color for the tab (if Tab style is selected)",
-                    "label": "Tab Background Color",
+                    "description": "Primary background color (used for tab, header, and submit button)",
+                    "label": "Theme Background Color",
                     "name": "tabBackgroundColor",
                     "type": "colorPicker"
                 },
                 {
                     "defaultValue": "#ffffff",
-                    "description": "Text color for the tab (if Tab style is selected)",
-                    "label": "Tab Text Color",
+                    "description": "Primary text color (used for tab, header, and submit button)",
+                    "label": "Theme Text Color",
                     "name": "tabTextColor",
-                    "type": "colorPicker"
-                },
-                {
-                    "defaultValue": "#0b5fff",
-                    "description": "Background color for the Send Feedback button",
-                    "label": "Submit Button Color",
-                    "name": "submitButtonColor",
-                    "type": "colorPicker"
-                },
-                {
-                    "defaultValue": "#ffffff",
-                    "description": "Text color for the Send Feedback button",
-                    "label": "Submit Button Text Color",
-                    "name": "submitButtonTextColor",
                     "type": "colorPicker"
                 },
                 {
@@ -73,6 +66,9 @@
                             },
                             {
                                 "value": "thumbs"
+                            },
+                            {
+                                "value": "none"
                             }
                         ]
                     }
@@ -97,6 +93,13 @@
                     "label": "Show Category",
                     "name": "showCategory",
                     "type": "checkbox"
+                },
+                {
+                    "defaultValue": "/o/sharefeedbacks",
+                    "description": "The URL where the form will be submitted",
+                    "label": "Feedback Action URL",
+                    "name": "feedbackActionURL",
+                    "type": "text"
                 },
                 {
                     "defaultValue": "bottom-right",

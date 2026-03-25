@@ -1,7 +1,21 @@
-<div class="lfr-share-feedback" data-position="${configuration.buttonPosition}" data-trigger="${configuration.triggerStyle!'tab'}">
+<div
+    class="lfr-share-feedback"
+    data-position="${configuration.buttonPosition}"
+    data-trigger="${configuration.triggerStyle!'tab'}"
+>
     [#if configuration.triggerStyle == 'tab']
-    <button class="lfr-share-feedback__trigger lfr-share-feedback__trigger--tab" aria-label="${configuration.tabText}" style="background-color: ${configuration.tabBackgroundColor}; color: ${configuration.tabTextColor};">
-        <svg class="lfr-share-feedback__tab-icon" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+    <button
+        class="lfr-share-feedback__trigger lfr-share-feedback__trigger--tab"
+        aria-label="${configuration.tabText}"
+        style="background-color: ${configuration.tabBackgroundColor}; color: ${configuration.tabTextColor};"
+    >
+        <svg
+            class="lfr-share-feedback__tab-icon"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+        >
             <path
                 d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
             />
@@ -9,7 +23,10 @@
         <span>${configuration.tabText}</span>
     </button>
     [#else]
-    <button class="lfr-share-feedback__trigger lfr-share-feedback__trigger--icon" aria-label="Share Feedback">
+    <button
+        class="lfr-share-feedback__trigger lfr-share-feedback__trigger--icon"
+        aria-label="Share Feedback"
+    >
         <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
             <path
                 d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
@@ -19,12 +36,29 @@
     [/#if]
 
     <div class="lfr-share-feedback__modal" aria-hidden="true" role="dialog">
-        <div class="lfr-share-feedback__modal-header">
-            <h3>Share Feedback</h3>
+        <div
+            class="lfr-share-feedback__modal-header"
+            style="background-color: ${configuration.tabBackgroundColor!'#E44B23'}; color: ${configuration.tabTextColor!'#ffffff'};"
+        >
+            <div class="lfr-share-feedback__header-content">
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    width="28"
+                    height="28"
+                    class="lfr-share-feedback__header-icon"
+                >
+                    <path
+                        d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"
+                    />
+                </svg>
+                <h3>${configuration.modalTitle!"Share Feedback"}</h3>
+            </div>
             <button
                 type="button"
                 class="lfr-share-feedback__close"
                 aria-label="Close"
+                style="color: inherit"
             >
                 <svg
                     fill="currentColor"
@@ -51,8 +85,7 @@
                         <option value="other">💬 Other</option>
                     </select>
                 </div>
-                [/#if]
-
+                [/#if] [#if configuration.ratingType != "none"]
                 <div class="lfr-share-feedback__group pt-2">
                     <label>How would you rate your experience?</label>
                     [#if configuration.ratingType == "emoji"]
@@ -225,11 +258,12 @@
                     </div>
                     [/#if]
                 </div>
+                [/#if]
 
                 <div class="lfr-share-feedback__group">
                     <label>Comments</label>
                     <textarea
-                        name="comments"
+                        name="comment"
                         class="lfr-share-feedback__textarea"
                         rows="3"
                         placeholder="Tell us more about your experience..."
@@ -242,9 +276,9 @@
                     <label>Email (optional)</label>
                     <input
                         type="email"
-                        name="email"
+                        name="emailAddress"
                         class="lfr-share-feedback__input"
-                        placeholder="your@email.com"
+                        placeholder="miguel@example.com"
                     />
                 </div>
                 [/#if] [#if configuration.captureScreenshot]
@@ -282,7 +316,7 @@
                     <button
                         type="submit"
                         class="lfr-share-feedback__submit-btn"
-                        style="background-color: ${configuration.submitButtonColor!'#0b5fff'}; color: ${configuration.submitButtonTextColor!'#ffffff'};"
+                        style="background-color: ${configuration.tabBackgroundColor!'#E44B23'}; color: ${configuration.tabTextColor!'#ffffff'};"
                     >
                         Send Feedback
                     </button>

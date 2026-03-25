@@ -1,26 +1,55 @@
-if (typeof fragmentElement !== "undefined" && fragmentElement) {
-    const triggerBtn = fragmentElement.querySelector(
-        ".lfr-share-feedback__trigger",
-    );
+async function handleSubmit(feedbackData) {
+    const feedbackActionURL =
+        configuration.feedbackActionURL ?? "/o/c/portalfeedbacks";
+
+    const payload = {
+        ...feedbackData,
+        pathname: window.location.pathname,
+        ratingType: configuration.ratingType,
+        userAgent: navigator.userAgent,
+    };
+
+    const fetch = feedbackActionURL.includes("http")
+        ? window.fetch
+        : Liferay.Util.fetch;
+
+    const response = await fetch(feedbackActionURL, {
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        method: "POST",
+    });
+
+    if (!response.ok) {
+        return console.error("Something went wrong to submit feedback");
+    }
+}
+
+async function main() {
     const closeBtn = fragmentElement.querySelector(
         ".lfr-share-feedback__close",
     );
-    const modal = fragmentElement.querySelector(".lfr-share-feedback__modal");
     const form = fragmentElement.querySelector(".lfr-share-feedback__form");
-    const successMsg = fragmentElement.querySelector(
-        ".lfr-share-feedback__success-message",
-    );
-
-    // Screenshot functionality
+    const modal = fragmentElement.querySelector(".lfr-share-feedback__modal");
     const screenshotBtn = fragmentElement.querySelector(
         ".lfr-share-feedback__screenshot-btn",
     );
+    const successMsg = fragmentElement.querySelector(
+        ".lfr-share-feedback__success-message",
+    );
+    const triggerBtn = fragmentElement.querySelector(
+        ".lfr-share-feedback__trigger",
+    );
+
     let screenshotDataUrl = null;
 
     if (triggerBtn && modal) {
         triggerBtn.addEventListener("click", () => {
             modal.classList.toggle("is-open");
+
             const isOpen = modal.classList.contains("is-open");
+
             triggerBtn.setAttribute("aria-expanded", isOpen);
             modal.setAttribute("aria-hidden", !isOpen);
 
@@ -96,11 +125,12 @@ if (typeof fragmentElement !== "undefined" && fragmentElement) {
             `;
 
             // Hide modal temporarily for screenshot
-            const wasOpen = modal.classList.contains("is-open");
-            if (wasOpen) {
+            const modalIsOpen = modal.classList.contains("is-open");
+
+            if (modalIsOpen) {
                 modal.classList.remove("is-open");
                 // Wait for animation
-                await new Promise((r) => setTimeout(r, 300));
+                await new Promise((resolve) => setTimeout(resolve, 300));
             }
 
             try {
@@ -116,6 +146,7 @@ if (typeof fragmentElement !== "undefined" && fragmentElement) {
                 const previewContainer = fragmentElement.querySelector(
                     ".lfr-share-feedback__screenshot-preview",
                 );
+
                 const previewImg = previewContainer.querySelector("img");
 
                 previewImg.src = screenshotDataUrl;
@@ -131,8 +162,8 @@ if (typeof fragmentElement !== "undefined" && fragmentElement) {
                     previewContainer.classList.add("hidden");
                     screenshotBtn.classList.remove("hidden");
                 });
-            } catch (err) {
-                console.error("Screenshot capture failed:", err);
+            } catch (error) {
+                console.error("Screenshot capture failed:", error);
             } finally {
                 // Restore button state and modal
                 screenshotBtn.classList.remove("is-loading");
@@ -143,7 +174,7 @@ if (typeof fragmentElement !== "undefined" && fragmentElement) {
                     Retake Screenshot
                 `;
 
-                if (wasOpen) {
+                if (modalIsOpen) {
                     modal.classList.add("is-open");
                 }
             }
@@ -151,24 +182,26 @@ if (typeof fragmentElement !== "undefined" && fragmentElement) {
     }
 
     if (form) {
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
             const submitBtn = form.querySelector(
                 ".lfr-share-feedback__submit-btn",
             );
+
             submitBtn.disabled = true;
             submitBtn.textContent = "Sending...";
 
             // Gather form data
             const formData = new FormData(form);
+
             const feedbackData = Object.fromEntries(formData.entries());
+
             if (screenshotDataUrl) {
                 feedbackData.screenshot = screenshotDataUrl;
             }
 
-            // Normally you would send this to an API
-            console.log("Feedback submitted:", feedbackData);
+            await handleSubmit(feedbackData);
 
             // Simulate API request
             setTimeout(() => {
@@ -211,3 +244,5 @@ if (typeof fragmentElement !== "undefined" && fragmentElement) {
         });
     }
 }
+
+main();
