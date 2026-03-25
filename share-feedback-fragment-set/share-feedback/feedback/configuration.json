@@ -41,6 +41,20 @@
                     "type": "colorPicker"
                 },
                 {
+                    "defaultValue": "#0b5fff",
+                    "description": "Background color for the Send Feedback button",
+                    "label": "Submit Button Color",
+                    "name": "submitButtonColor",
+                    "type": "colorPicker"
+                },
+                {
+                    "defaultValue": "#ffffff",
+                    "description": "Text color for the Send Feedback button",
+                    "label": "Submit Button Text Color",
+                    "name": "submitButtonTextColor",
+                    "type": "colorPicker"
+                },
+                {
                     "defaultValue": "emoji",
                     "description": "Select the rating type",
                     "label": "Rating Type",
