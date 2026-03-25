@@ -1,0 +1,17 @@
+{
+    "name": "share-feedback-liferay-fragments",
+    "module": "index.ts",
+    "type": "module",
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    },
+    "scripts": {
+        "build": "./scripts/build.sh",
+        "deploy": "bun run build && ./scripts/deploy.sh",
+        "watcher": "bun run scripts/watcher.ts"
+    }
+}
