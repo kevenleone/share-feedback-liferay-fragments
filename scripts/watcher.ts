@@ -17,7 +17,7 @@ fs.watch(watchFolder, { recursive: true }, (_, filename) => {
         return;
     }
 
-    console.log(`Change detected: ${filename}`);
+    console.log(`Change detected: ${filename}`, new Date());
 
     if (timeout) clearTimeout(timeout);
 

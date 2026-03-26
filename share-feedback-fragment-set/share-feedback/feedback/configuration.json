@@ -88,6 +88,13 @@
                     "type": "checkbox"
                 },
                 {
+                    "defaultValue": true,
+                    "description": "Only Signed-In users can see and submit feedback",
+                    "label": "Signed Users Only",
+                    "name": "signedUsersOnly",
+                    "type": "checkbox"
+                },
+                {
                     "defaultValue": false,
                     "description": "Show category selection dropdown",
                     "label": "Show Category",
@@ -95,7 +102,7 @@
                     "type": "checkbox"
                 },
                 {
-                    "defaultValue": "/o/sharefeedbacks",
+                    "defaultValue": "/o/c/portalfeedbacks",
                     "description": "The URL where the form will be submitted",
                     "label": "Feedback Action URL",
                     "name": "feedbackActionURL",

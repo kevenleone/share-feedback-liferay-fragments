@@ -12,6 +12,8 @@
     "scripts": {
         "build": "./scripts/build.sh",
         "deploy": "bun run build && ./scripts/deploy.sh",
+        "lint": "biome lint .",
+        "lint:fix": "biome lint . --write",
         "watcher": "bun run scripts/watcher.ts"
     }
 }

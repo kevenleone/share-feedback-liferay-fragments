@@ -27,6 +27,10 @@ async function handleSubmit(feedbackData) {
 }
 
 async function main() {
+    if (configuration.signedUsersOnly && !Liferay.ThemeDisplay.isSignedIn()) { 
+        return;
+    }
+    
     const closeBtn = fragmentElement.querySelector(
         ".lfr-share-feedback__close",
     );
@@ -42,9 +46,9 @@ async function main() {
         ".lfr-share-feedback__trigger",
     );
 
-    let screenshotDataUrl = null;
+    let screenshotDataURL = null;
 
-    if (triggerBtn && modal) {
+    if (modal && triggerBtn) {
         triggerBtn.addEventListener("click", () => {
             modal.classList.toggle("is-open");
 
@@ -59,7 +63,10 @@ async function main() {
                     const firstInput = form.querySelector(
                         "input, textarea, select",
                     );
-                    if (firstInput) firstInput.focus();
+                    
+                    if (firstInput) {
+                        firstInput.focus()
+                    };
                 }, 300);
             }
         });
@@ -74,11 +81,11 @@ async function main() {
     }
 
     // Close on click outside
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", (event) => {
         if (
             modal?.classList?.contains("is-open") &&
-            !modal.contains(e.target) &&
-            !triggerBtn.contains(e.target)
+            !modal.contains(event.target) &&
+            !triggerBtn.contains(event.target)
         ) {
             modal.classList.remove("is-open");
             triggerBtn.setAttribute("aria-expanded", "false");
@@ -101,16 +108,19 @@ async function main() {
                 try {
                     await new Promise((resolve, reject) => {
                         const script = document.createElement("script");
+                        
                         script.src =
                             "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
-                        script.onload = resolve;
                         script.onerror = reject;
+                        script.onload = resolve;
                         document.head.appendChild(script);
                     });
                 } catch (e) {
                     console.error("Failed to load html2canvas");
+                    
                     screenshotBtn.innerHTML = "Failed to capture";
                     screenshotBtn.classList.remove("is-loading");
+                    
                     return;
                 }
             }
@@ -148,7 +158,7 @@ async function main() {
 
                 // Use highly-compressed JPEG (0.4 quality) instead of lossless PNG
                 // This ensures base64 strings easily stay below the 65000-char limits
-                screenshotDataUrl = canvas.toDataURL("image/jpeg", 0.4);
+                screenshotDataURL = canvas.toDataURL("image/jpeg", 0.4);
 
                 const previewContainer = fragmentElement.querySelector(
                     ".lfr-share-feedback__screenshot-preview",
@@ -156,7 +166,7 @@ async function main() {
 
                 const previewImg = previewContainer.querySelector("img");
 
-                previewImg.src = screenshotDataUrl;
+                previewImg.src = screenshotDataURL;
                 previewContainer.classList.remove("hidden");
                 screenshotBtn.classList.add("hidden");
 
@@ -165,7 +175,7 @@ async function main() {
                     ".lfr-share-feedback__screenshot-remove",
                 );
                 removeBtn.addEventListener("click", () => {
-                    screenshotDataUrl = null;
+                    screenshotDataURL = null;
                     previewContainer.classList.add("hidden");
                     screenshotBtn.classList.remove("hidden");
                 });
@@ -204,8 +214,8 @@ async function main() {
 
             const feedbackData = Object.fromEntries(formData.entries());
 
-            if (screenshotDataUrl) {
-                feedbackData.screenshot = screenshotDataUrl;
+            if (screenshotDataURL) {
+                feedbackData.screenshot = screenshotDataURL;
             }
 
             await handleSubmit(feedbackData);
@@ -243,7 +253,7 @@ async function main() {
                             previewContainer.classList.add("hidden");
                             if (screenshotBtn)
                                 screenshotBtn.classList.remove("hidden");
-                            screenshotDataUrl = null;
+                            screenshotDataURL = null;
                         }
                     }, 300);
                 }, 3000);
